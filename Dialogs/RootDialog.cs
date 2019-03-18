@@ -55,6 +55,7 @@ namespace ChatBot.Dialogs
             if (result.Answers.Count == 1 && result.Answers[0].Score == 0.0)
             {
                 await context.PostAsync("あいにく見つかりませんでした。。。。");
+                await AfterAnswerAsync(context, null);
             }
             else
             {
