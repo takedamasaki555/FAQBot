@@ -42,22 +42,22 @@ namespace ChatBot
                         {
                             if (newMember.Id == activity.Recipient.Id)
                             {
-                                Activity replyToConversation = activity.CreateReply("‚æ‚¤‚±‚»I");
+                                Activity replyToConversation = activity.CreateReply("ã‚ˆã†ã“ãï¼");
                                 replyToConversation.Recipient = activity.From;
                                 replyToConversation.Type = "message";
                                 replyToConversation.Attachments = new List<Attachment>();
                                 List<CardAction> cardButtons = new List<CardAction>();
                                 CardAction cButton = new CardAction()
                                 {
-                                    Title = "ƒ{ƒbƒg‚ğŒÄ‚Ô",
+                                    Title = "ãƒœãƒƒãƒˆã‚’å‘¼ã¶",
                                     Type = ActionTypes.ImBack,
-                                    Value = "ƒ{ƒbƒg‚ğŒÄ‚Ô"
+                                    Value = "ãƒœãƒƒãƒˆã‚’å‘¼ã¶"
                                 };
                                 cardButtons.Add(cButton);
                                 
                                 HeroCard plCard = new HeroCard()
                                 {
-                                    Title = "ƒNƒŠƒbƒN‚µ‚ÄAƒ{ƒN‚ğŒÄ‚ñ‚Å‚ËB",
+                                    Title = "ã‚¯ãƒªãƒƒã‚¯ã—ã¦ã€ãƒœã‚¯ã‚’å‘¼ã‚“ã§ã­ã€‚",
                                     Buttons = cardButtons
                                 };
                                 Attachment plAttachment = plCard.ToAttachment();
