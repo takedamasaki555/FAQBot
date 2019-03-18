@@ -22,14 +22,14 @@ namespace ChatBot.Dialogs
 
         public virtual async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> item)
         {
-            PromptDialog.Choice(context, EnterQuestion, FAQCategory.FAQCategory.CategoryList, "ƒJƒeƒSƒŠ‚ğ‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢B");
+            PromptDialog.Choice(context, EnterQuestion, FAQCategory.FAQCategory.CategoryList, "ã‚«ãƒ†ã‚´ãƒªã‚’é¸æŠã—ã¦ãã ã•ã„ã€‚");
         }
        
         private async Task EnterQuestion(IDialogContext context, IAwaitable<string> item)
         {
             var message = await item;
             SelectedCategory = message;
-            PromptDialog.Text(context, SearchQuestion, $"**¿–â‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B**\n[{message}]‚ª‘I‘ğ");
+            PromptDialog.Text(context, SearchQuestion, $"**è³ªå•ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚**\n[{message}]ãŒé¸æŠ");
         }
         private async Task SearchQuestion(IDialogContext context, IAwaitable<string> item)
         {
@@ -40,7 +40,7 @@ namespace ChatBot.Dialogs
                 StrictFilters = ", \"strictFilters\": [ { \"name\": \"category\", \"value\": \"" + SelectedCategory + "\"}]";
             }
 
-            await context.PostAsync($"u{SelectedCategory}v‚Å’T‚µ‚Ä‚¢‚Ü‚·...");
+            await context.PostAsync($"ã€Œ{SelectedCategory}ã€ã§æ¢ã—ã¦ã„ã¾ã™...");
 
             string json = await GenerateAnswer.GetResultAsync(message, StrictFilters);
             if (json != "failture")
@@ -54,7 +54,7 @@ namespace ChatBot.Dialogs
         {
             if (result.Answers.Count == 1 && result.Answers[0].Score == 0.0)
             {
-                await context.PostAsync("‚ ‚¢‚É‚­Œ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½BBBB");
+                await context.PostAsync("ã‚ã„ã«ãè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸã€‚ã€‚ã€‚ã€‚");
                 await AfterAnswerAsync(context, null);
             }
             else
@@ -71,7 +71,7 @@ namespace ChatBot.Dialogs
                         List<CardAction> cardButtons = new List<CardAction>();
                         CardAction cButton = new CardAction()
                         {
-                            Title = "“š‚¦‚ğ‚İ‚é",
+                            Title = "ç­”ãˆã‚’ã¿ã‚‹",
                             Type = ActionTypes.ImBack,
                             Value = result.Answers[i].Questions[j]
                         };
@@ -86,15 +86,15 @@ namespace ChatBot.Dialogs
                 }
                 CardAction lastButton = new CardAction()
                 {
-                    Title = "ƒNƒŠƒbƒN",
+                    Title = "ã‚¯ãƒªãƒƒã‚¯",
                     Type = ActionTypes.ImBack,
-                    Value = "ã‹L‚Ì‚Ç‚ê‚Å‚à‚È‚¢"
+                    Value = "ä¸Šè¨˜ã®ã©ã‚Œã§ã‚‚ãªã„"
                 };
                 List<CardAction> cardButton = new List<CardAction>();
                 cardButton.Add(lastButton);
                 HeroCard LastCard = new HeroCard()
                 {
-                    Text = "ã‹L‚Ì‚Ç‚ê‚Å‚à‚È‚¢",
+                    Text = "ä¸Šè¨˜ã®ã©ã‚Œã§ã‚‚ãªã„",
                     Buttons = cardButton
                 };
                 resultMessage.Attachments.Add(LastCard.ToAttachment());
@@ -108,9 +108,9 @@ namespace ChatBot.Dialogs
         {
             var message = await item;
 
-            if(message.Text == "ã‹L‚Ì‚Ç‚ê‚Å‚à‚È‚¢")
+            if(message.Text == "ä¸Šè¨˜ã®ã©ã‚Œã§ã‚‚ãªã„")
             {
-                await context.PostAsync("‚¨–ğ‚É—§‚Ä‚¸\‚µ–ó‚²‚´‚¢‚Ü‚¹‚ñBB");
+                await context.PostAsync("ãŠå½¹ã«ç«‹ã¦ãšç”³ã—è¨³ã”ã–ã„ã¾ã›ã‚“ã€‚ã€‚");
                 await AfterAnswerAsync(context, item);
             } else
             { 
@@ -127,21 +127,21 @@ namespace ChatBot.Dialogs
         private async Task AfterAnswerAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
             List<string> Question = new List<string>();
-            Question.Add("“¯‚¶ƒJƒeƒSƒŠ‚Å¿–â");
-            Question.Add("ƒJƒeƒSƒŠ‚ğ•ÏX");
-            PromptDialog.Choice(context, ReenterQuestion, Question, "‘±‚¯‚Ä¿–â‚Å‚«‚Ü‚·B");
+            Question.Add("åŒã˜ã‚«ãƒ†ã‚´ãƒªã§è³ªå•");
+            Question.Add("ã‚«ãƒ†ã‚´ãƒªã‚’å¤‰æ›´");
+            PromptDialog.Choice(context, ReenterQuestion, Question, "ç¶šã‘ã¦è³ªå•ã§ãã¾ã™ã€‚");
         }
 
         private async Task ReenterQuestion(IDialogContext context, IAwaitable<string> result)
         {
             var selectedMenu = await result;
-            if (selectedMenu == "“¯‚¶ƒJƒeƒSƒŠ‚Å¿–â")
+            if (selectedMenu == "åŒã˜ã‚«ãƒ†ã‚´ãƒªã§è³ªå•")
             {
-                PromptDialog.Text(context, SearchQuestion, $"**¿–â‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B**\n[{SelectedCategory}]‚ª‘I‘ğ");
+                PromptDialog.Text(context, SearchQuestion, $"**è³ªå•ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚**\n[{SelectedCategory}]ãŒé¸æŠ");
             }
-            else if(selectedMenu == "ƒJƒeƒSƒŠ‚ğ•ÏX")
+            else if(selectedMenu == "ã‚«ãƒ†ã‚´ãƒªã‚’å¤‰æ›´")
             {
-                PromptDialog.Choice(context, EnterQuestion, FAQCategory.FAQCategory.CategoryList, "ƒJƒeƒSƒŠ‚ğ‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢B");
+                PromptDialog.Choice(context, EnterQuestion, FAQCategory.FAQCategory.CategoryList, "ã‚«ãƒ†ã‚´ãƒªã‚’é¸æŠã—ã¦ãã ã•ã„ã€‚");
             }
         }
     }
