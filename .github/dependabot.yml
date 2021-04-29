@@ -1,0 +1,38 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: Microsoft.IdentityModel.Logging
+    versions:
+    - 6.10.0
+    - 6.10.1
+    - 6.10.2
+    - 6.8.0
+    - 6.9.0
+  - dependency-name: Microsoft.Bot.Connector
+    versions:
+    - 4.11.1
+    - 4.12.0
+    - 4.12.1
+    - 4.12.2
+    - 4.13.0
+  - dependency-name: Microsoft.Bot.Builder.Azure
+    versions:
+    - 4.11.1
+    - 4.12.0
+    - 4.12.1
+    - 4.12.2
+    - 4.13.0
+  - dependency-name: Autofac
+    versions:
+    - 6.1.0
+  - dependency-name: Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel
+    versions:
+    - 2.16.0
+  - dependency-name: Newtonsoft.Json
+    versions:
+    - 12.0.3
